@@ -38,7 +38,10 @@
 // - create a variable result and assign it to an emtpy object
 // - split the string into individual word(any sequence of char separated by space) and put them in the array => an array of word
 // loop trough the array of word, in each iteration:
-// - initialized a variable to the length of the word -- this will be the key of the new object
+// split the word into array of individual char
+// filter the world that only letter
+// put the char into the word
+//- initialized a variable to the length of the word -- this will be the key of the new object
 // - check whether the length of the word is equal to 0, if so return the empty object
 // - if the object with the same key is there (exist) incremeant the value of the object
 // - if the object is not there (doesn't exisxt ywt) the value is one
