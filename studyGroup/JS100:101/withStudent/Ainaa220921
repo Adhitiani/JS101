@@ -1,0 +1,391 @@
+// What does this code do? What is output? What is returned? What concept does it demonstrate? 
+
+const name = 'John'
+
+function myFunction() {
+  return name.toLowerCase();
+}
+
+console.log(myFunction());
+console.log(name);
+
+// My guess - Expectation - Testing - Expected and actual
+
+// The return value of myFunction will be 'john'. 
+// Line 11, this is going to output John. 
+
+// Actual - return value is john, John is output to the console. 
+
+// whether string are immutable or not? 
+
+// On line 4, we declare a variable name and initialize it's value to `John`. 
+// On line 10, we invoke the myFunction function. 
+// On line 7, in the function body, we return the value of invoking toLowerCase function on `name`. 
+// name is referencing the value initialized (which is John) to the variable `name` in the global scope. 
+// (This is because there is no local variable called name inside of myFunction, so JS looks for name in the outer scope and finds the variable declared on line 4. )
+
+// line 7 returns a new lowercase string 'john' and this becomes the return value of the function. 
+
+// code on line logs John because in JS, strings are primitive values and are not mutable. There are no methods that can change the value that is referenced by the variable name. myFunction did not change the value of name. Therefore, it outputs 'John'. 
+
+// Describe and show examples of 3 ways to write functions? 
+
+// 1 - function declarations 
+function name() {
+  console.log("Ainaa")
+}
+
+name();
+
+// All function declaration always starts with function keyword. The function keyword has to be first keyword on the most left. 
+
+// 2 - function expression 
+let age = function() {
+  console.log(34)
+}
+
+age();
+
+// 3 - arrow function 
+
+
+// The syntax is right, but this is an anonymous function
+let random = (test) => { console.log('test')}
+
+// This is equivalent to the above. 
+let random2 = function(test) {
+  console.log('test');
+}
+
+// If you only have one parameter, the () is optional 
+let sum = test => console.log('test');
+
+// If you only write one line of code(one short expression), you can not use curly braces and not use return keyword as well.
+let sum2 = (a, b) => a + b;
+
+// If you have to write more than one line of code (more than one expression), use the curly braces; 
+// You must use the return keywrod.Otherwise, it returns undefined. 
+
+let sum3 = (a, b) => { return a + b }
+
+
+console.log(sum3(3, 5));
+
+
+// Explain the difference between `map` and `filter`.
+
+// - map is a array method that performs "transformation"
+// - uses the return value of the callback as the transformation criteria 
+// - always return the same amount of elements as the original array. 
+// - returns a new array
+
+
+// - filter is an array method that performs "selection"
+// - checks the truthiness of the return value of the callback function to select the element
+// - if it's truthy, it selects the elements and puts it in the new array (returns a new array)
+//  - because of this, you can have less elements than the original arary. 
+
+// What are the similarities? 
+
+// - returns a new array 
+
+// need to know! map, filter and forEach
+// - slice, splice, push etc etc - the most important is to remember and what they do (is it mutating or not?) and the return value
+
+// slice is not a mutating method,it returns a new array. 
+// splice is a mutating method
+// push is mutating
+
+// MDN - use this sparingly - because it takes time to search through and also the description may be different than what LS expects us
+
+// use Launch school pages in your cheat sheet if you want 
+// and create your own cheat sheet 
+
+// Write a function that groups words by the number of capital letters and returns a dictionary of object entries whose keys are the number of capital letters and the values are the groups.
+
+// Examples
+// grouping(["HaPPy", "mOOdy", "yummy", "mayBE"]) ➞ {
+//   0: ["yummy"],
+//   2: ["mayBE", "mOOdy"],
+//   3: ["HaPPy"]
+// }
+
+// grouping(["eeny", "meeny", "miny", "moe"]) ➞ {
+//   0: ["eeny", "meeny", "miny", "moe"]
+// }
+
+// grouping(["FORe", "MoR", "bOR", "tOR", "sOr", "lor"]) ➞ {
+//   0: ["lor"],
+//   1: ["sOr"],
+//   2: ["MoR", "bOR", "tOR"],
+//   3: ["FORe"]
+// }
+// Notes
+// The object entries have to be sorted by the number of capital letters.
+// The groups will be arrays of all words sharing the same number of capital letters.
+// The groups have to be sorted alphabetically (ignoring case).
+// Words will be unique.
+
+/* 
+
+Input: Array of strings (string represent the words that need to be grouped)
+Output: Object (the key is the number of capital letter, the value is an array of grouped words)
+
+Problems 
+- I need to group the array based on a condition
+ - the condition is based on how many capital letter does a word have 
+- once I group them, I need to put them into an object 
+  - the key is the number of capital letter that I counted from the word
+  - the values it the array of the words that meet this condition. 
+
+Example
+
+grouping(["HaPPy", "mOOdy", "yummy", "mayBE"])
+
+What do I think the return value is going to look like?
+- yummy has 0 capital letters
+- mOOdy has 2 capital letters 
+- mayBE has 2 capital letters
+- HaPPy has 3 capital letters
+
+{ 
+  0: ["yummy"], 
+  2: ["mOOdy", "mayBE"],
+  3: ["HaPPy"]
+} 
+
+{
+  0: ["yummy"],
+  2: ["mayBE", "mOOdy"],
+  3: ["HaPPy"]
+}
+
+Are they the same? Yes 
+
+Data Structure 
+
+Array => Object
+(This tells me I need an object and I'm most likely going to be using array methods. )
+
+
+Approach / Algorithm 
+
+- I need to iterate the array of words, I need to count how many capital letters are in the current word, and then I need to save it in the new object based on how many capital letters it has. 
+
+Is there another way to do it? 
+
+- I can't think of any other ways to do it.
+
+Algorithm 
+
+- let's declare a variable and assign to an empty object. let newObj = {}; 
+- Iterate through the words array, for each word
+  - count the number of capital letters. 
+    (this count is going to be they key)
+  - if the key exists in the obj? 
+    - then I need to add this word into value of this key (it's an array with another word in it)
+  - if the key doesn't exist? 
+    - assign a new key value to obj with an empty array - newObj[count] = []
+    - and then push the current word into the array - newObj[count].push(currentWord)
+    - then I need to assign a new key value to the object with the current word inside an array. 
+- return newObj
+
+How do we count the number of capital letters? 
+
+This should be a helper method! 
+
+- declare a variable count and set it to 0 
+- iterate through each letter in the word, for each letter 
+  - is it equivalent to itself uppercase?
+    - if true , then it is a capital letter, increment count += 1
+    - if it is not, then it's not a capital letter, do nothing
+- return count
+  
+  
+
+*/
+
+function grouping(words) {
+  let newObj = {};
+  
+  words.forEach(word => {
+    let count = countCapitalLetter(word) // return a number which is the count
+    
+    if (newObj[count]) {
+      newObj[count].push(word); 
+    } else {
+      newObj[count] = [];
+      newObj[count].push(word);
+    }
+  });
+  
+  return newObj;
+}
+
+function countCapitalLetter(word) {
+  let count = 0; 
+  for (let i = 0; i < word.length; i++) {
+    let currentLetter = word[i]; 
+    
+    if (currentLetter === currentLetter.toUpperCase()) {
+      count += 1;
+    }
+  }
+  return count;
+}
+
+console.log(grouping(["HaPPy", "mOOdy", "yummy", "mayBE"]));
+
+console.log(grouping(["eeny", "meeny", "miny", "moe"]));
+
+console.log(grouping(["FORe", "MoR", "bOR", "tOR", "sOr", "lor"]));
+
+
+// Write a function that groups words by the number of capital letters and returns a dictionary of object entries whose keys are the number of capital letters and the values are the groups.
+
+// Examples
+// grouping(["HaPPy", "mOOdy", "yummy", "mayBE"]) ➞ {
+//   0: ["yummy"],
+//   2: ["mayBE", "mOOdy"],
+//   3: ["HaPPy"]
+// }
+
+// grouping(["eeny", "meeny", "miny", "moe"]) ➞ {
+//   0: ["eeny", "meeny", "miny", "moe"]
+// }
+
+// grouping(["FORe", "MoR", "bOR", "tOR", "sOr", "lor"]) ➞ {
+//   0: ["lor"],
+//   1: ["sOr"],
+//   2: ["MoR", "bOR", "tOR"],
+//   3: ["FORe"]
+// }
+// Notes
+// The object entries have to be sorted by the number of capital letters.
+// The groups will be arrays of all words sharing the same number of capital letters.
+// The groups have to be sorted alphabetically (ignoring case).
+// Words will be unique.
+
+/* 
+
+Input: Array of strings (string represent the words that need to be grouped)
+Output: Object (the key is the number of capital letter, the value is an array of grouped words)
+
+Problems 
+- I need to group the array based on a condition
+ - the condition is based on how many capital letter does a word have 
+- once I group them, I need to put them into an object 
+  - the key is the number of capital letter that I counted from the word
+  - the values it the array of the words that meet this condition. 
+
+Example
+
+grouping(["HaPPy", "mOOdy", "yummy", "mayBE"])
+
+What do I think the return value is going to look like?
+- yummy has 0 capital letters
+- mOOdy has 2 capital letters 
+- mayBE has 2 capital letters
+- HaPPy has 3 capital letters
+
+{ 
+  0: ["yummy"], 
+  2: ["mOOdy", "mayBE"],
+  3: ["HaPPy"]
+} 
+
+{
+  0: ["yummy"],
+  2: ["mayBE", "mOOdy"],
+  3: ["HaPPy"]
+}
+
+Are they the same? Yes 
+
+Data Structure 
+
+Array => Object
+(This tells me I need an object and I'm most likely going to be using array methods. )
+
+
+Approach / Algorithm 
+
+- I need to iterate the array of words, I need to count how many capital letters are in the current word, and then I need to save it in the new object based on how many capital letters it has. 
+
+Is there another way to do it? 
+
+- I can't think of any other ways to do it.
+
+Algorithm 
+
+- let's declare a variable and assign to an empty object. let newObj = {}; 
+- Iterate through the words array, for each word
+  - count the number of capital letters. 
+    (this count is going to be they key)
+  - if the key exists in the obj? 
+    - then I need to add this word into value of this key (it's an array with another word in it)
+  - if the key doesn't exist? 
+    - assign a new key value to obj with an empty array - newObj[count] = []
+    - and then push the current word into the array - newObj[count].push(currentWord)
+    - then I need to assign a new key value to the object with the current word inside an array. 
+- return newObj
+
+How do we count the number of capital letters? 
+
+This should be a helper method! 
+
+
+- declare a variable count and set it to 0 
+- iterate through each letter in the word, for each letter 
+  - is it equivalent to itself uppercase?
+    - if true , then it is a capital letter, increment count += 1
+    - if it is not, then it's not a capital letter, do nothing
+- return count
+  
+  
+
+*/
+
+function grouping(words) {
+  let newObj = {};
+  
+  words.forEach(word => {
+    let count = countCapitalLetter(word) // return a number which is the count
+    
+    if (newObj[count]) {
+      newObj[count].push(word); 
+    } else {
+      newObj[count] = [];
+      newObj[count].push(word);
+    }
+  });
+  
+  return newObj;
+}
+
+function countCapitalLetter(word) {
+  let count = 0; 
+  for (let i = 0; i < word.length; i++) {
+    let currentLetter = word[i]; 
+    
+    if (currentLetter === currentLetter.toUpperCase()) {
+      count += 1;
+    }
+  }
+  return count;
+}
+
+console.log(grouping(["HaPPy", "mOOdy", "yummy", "mayBE"]));
+
+console.log(grouping(["eeny", "meeny", "miny", "moe"]));
+
+console.log(grouping(["FORe", "MoR", "bOR", "tOR", "sOr", "lor"]));
+
+
+
+
+
+
+
+
+

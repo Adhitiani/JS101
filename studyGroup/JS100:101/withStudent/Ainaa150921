@@ -1,0 +1,114 @@
+const a = {
+  firstName: 'John',
+  lastName: 'Doe'
+};
+
+function myFunction() {
+  a.firstName = 'Jane';
+}
+
+myFunction();
+
+console.log(a);
+
+/*
+On line one we declared a variable a and assign it to an object.
+On line 6 we declared a function `myFunction` without any argument. On the function body, we access the property `firstName` of variable a and reassign it to `Jane`
+On line 10 we invoke the function `myFunction' and reassign the value of the `firsName` property to 'Jane'. It will modify the variable a. Although the variable is declare with `const`, it is intialized to a object instead of a primitive value. So you can still modified the content since it is not a reassignment.
+on line 12 we log the variable a. It will log:
+
+const a = {
+  firstName: 'Jane',
+  lastName: 'Doe'
+};
+
+The fact that const variables cannot be re-assigned does not mean that the value they hold is immutable. 
+
+// What gets logged and why?
+
+let words = ["hunter", "spear", "gatherer", "sack"];
+
+function pluralize(array) {
+    return array.map((words) => {
+        words += "s"; // hunters , gatheres
+        return words;
+    });
+}
+
+console.log(pluralize(words));
+console.log(words);
+
+/*
+on line 13, method `console.log` is invoked with the return value of function call `pluralized` passed to it as an argument. The function call also has its own argument variable `words` passed in. Array object pointed to by variable `words` is then assigned to local variable `array` in place of the parameter and made available to the function body.
+
+Within the function definition on line `6`, the `return` statement returns the return value(in this case a new array object) of method call `map` on variable `array` with a call back function passed to it as an argument. The callback function is invoked for each of the element in variable `array` with the returned value saved to a new array. The callback function reassign the values of the element of each subarray to the original string plus `s`. Then the returned modified subarray is added to the new array. Because array is mutable, the reassignment of value does not reassign but modifies the original object. 
+
+Thus line `13` will log `[["hunters", "spears"], ["gatherers", "sacks"]]`. 
+
+Even though function `map` returned a new array, within the new array, the subarraies point to the same object that variable `words`'s subarray points to. The modification will reflect in both objects.
+
+line '14` will still log `[["hunters", "spears"], ["gatherers", "sacks"]]`
+
+This shows that array as an object is mutable in its value.
+*/
+
+
+
+
+*/
+
+// What gets logged and why?
+
+let words = [["hunter", "spear"], ["gatherer", "sack"]];
+
+function pluralize(array) {
+    return array.map((words) => {
+        words[0] += "s"; // hunters , gatheres
+        words[1] += "s"; // spears, sacks 
+        return words;
+    });
+}
+
+console.log(pluralize(words));
+console.log(words);
+
+/*
+on line 13, method `console.log` is invoked with the return value of function call `pluralized` passed to it as an argument. The function call also has its own argument variable `words` passed in. Array object pointed to by variable `words` is then assigned to local variable `array` in place of the parameter and made available to the function body.
+
+Within the function definition on line `6`, the `return` statement returns the return value(in this case a new array object) of method call `map` on variable `array` with a call back function passed to it as an argument. The callback function is invoked for each of the element in variable `array` with the returned value saved to a new array. The callback function reassign the values of the element of each subarray to the original string plus `s`. Then the returned modified subarray is added to the new array. Because array is mutable, the reassignment of value does not reassign but modifies the original object. 
+
+Thus line `13` will log `[["hunters", "spears"], ["gatherers", "sacks"]]`. 
+
+Even though function `map` returned a new array, within the new array, the subarraies point to the same object that variable `words`'s subarray points to. The modification will reflect in both objects.
+
+line '14` will still log `[["hunters", "spears"], ["gatherers", "sacks"]]`
+
+This shows that array as an object is mutable in its value.
+*/
+
+//how many scopes are available in this function and what is the return value.
+function printSomething(string) {
+  let printString = string => console.log('=> ' + string);
+  let length = i => i.length;
+  
+  for (let i = 0; i < 3; i++) {
+    console.log(printString);
+  }
+
+  if (string.length > 5) {
+    printString(`Wow, this is a long string. It consists of ${length(string)} characters.`)
+  }
+} 
+
+printSomething('longWord');
+
+/*
+The 1st scope, is the function scope (the body of the `printSomething function) from line 2 to line 13
+the 2nd, the printString function.
+the 3rd scope is the length function.
+The second scope, is the for loop from line 6 to line 8
+The third scope is the if conditional on line 10 to line 12
+global scope
+
+
+
