@@ -1,0 +1,120 @@
+```jsx
+let a = '';
+let b = false;
+
+if (a == b) {
+  console.log('Hello world'); 
+};
+```
+
+
+We initialized variable `a` with `''` on line 1 and on line 2 we initialized variable `b` with `false`. Both `''` and `false` are falsy values. There are 6 falsy values in Javascript: `undefined`, `NaN`, `0`, `null`, `''`, `false`.
+On line 4 we define an If conditional statement that will output `"hello world"` to the console if `a == b` evaluated to true. The `==` operator coerces the values to the same type before comparing them. A boolean value is coerced to a number when we compare it with other values. `false` is coerced to `0`. and a string is coerced to a number as well when we compare it with a number. `''` is coerced to 0. At the end, we compare `0 == 0` and it evaluates to true. Therefore, the code outputs `"hello world"`. This code demonstrates the concept of truthiness and how loose equal operator works as described above. 
+
+My recommendation:
+- The `==` operator coerces the values to the same type before comparing them.
+- The value of `a` and `b` are coerced to the same data types which is then compared and evaluates to true. 
+- This code demonstrates the concept of truthiness and how loose equal operator works as described above. 
+
+
+```javascript
+let pets = ['dragon', 'turtle']
+let newPets = pets
+pets[2] = 'cat'
+
+console.log(pets);
+console.log(newPets);
+```
+
+Both `console.log` output `[ 'dragon', 'turtle', 'cat' ]`.
+The reason is that on line 1, variable `pets` is declared and initialized to the array literal `[ 'dragon', 'turtle' ]`. On line 2, variable `newPets` is declared and initialized to the value of `pets`. When a variable that references an object is assigned to another variable, instead of copying the object, it copies the reference. We are making `newPets` and `pets` point to the same array.
+On line 3, we add a new element on index 2, the string `cat` to the array. [add my notes here]. The array's value is now `[ 'dragon', 'turtle', 'cat' ]`
+Since `newPets` and `pets` point to the same array, both variables reflect the updated contents of the array. Therefore both code on lines 5 and 6 logs `[ 'dragon', 'turtle', 'cat' ]`.
+The code demonstrates variables as pointer concepts.
+
+Notes:
+- Adding a new element as we did in the code above mutates the array.
+
+```javascript
+let pets = ['dragon', 'turtle']
+pets[1] = 'cat';
+```
+
+What are we doing? 
+- We re-assign the element on index 1 on the array. 
+- When we re-assign the element on a particular index as the code above, this mutates the original array. 
+- (Because it's a primitive value, the original string in the index 1 of the array 'turtle' is not changed but instead re-assigned a new string 'cat'.)
+
+
+// Idiomatic variable names 
+
+What is an idiomatic variable name? 
+- Follows guideline `camelCase` `pascalCase` `MAGIC_NUMBERS`
+
+What is a legal variable name? - It's not common guideline but you may use for a particular purpose `_variableName`
+- Why do we have this? `_variableName`
+  - main use case - in libraries, they use these naming convention to avoid conflicting variable names 
+  
+What is an illegal variable name? `let 7variableName;` - raises an error , `let +variable = ` raise an error
+- most likely raise an error 
+
+Why are they important? 
+
+Why is it important to avoid magic numbers (use constant for magic numbers)? 
+
+```javascript
+let discountedPrice = 10 * 0.9;
+```
+
+```javascript
+let price = 10; // indollars
+const YEAR_END_SALE_DISCOUNT = 0.9 // 10% off
+let discountedPrice = price * YEAR_END_SALE_DISCOUNT;
+
+```
+
+```javascript
+const HUMAN_CAT_YEAR_CONVERSION = 7;
+let catAge = 1;
+
+let humanCatAge = catAge * HUMAN_CAT_YEAR_CONVERSION;
+```
+
+```javascript
+function addName(arr, name) {                   //line 1
+  arr = arr.concat([name]);                      //line 2
+}                                                 // line 3
+
+let names = ["bob", "kim"];                      // line 4
+addName(names, "jim");                           // line 5
+console.log(names); // => [ 'bob', 'kim', ]     // line 6
+```
+
+
+
+Why this code log `["bob", "Kim"]`, instead of `[ 'bob', 'kim', 'jim' ]`?
+The reason is that we invoke addName on line 5 and passed the value of variables names which is a pointer to the array `["bob", "Kim"]`, and the string `"jim"` as arguments. This is both pass by reference and pass by value. (explain) The function invocation executes the code on lines 1 - 3. On line 2 we reassign `arr` to value of calling concat on `arr` and pass it an array with the value of `name` as its only element. The `concat` call is not a mutating method and returns a new array and we assign it to `arr`. Re-assigning `arr` does not affect the original array (Why? Because re-assignments points arr to the new array). Therefore, the code on line 6 logs `[ 'bob', 'kim']` the original value of names.
+
+What concept does this demonstrate? 
+
+This code demonstrates pass by reference and pass by values, specifically the fact that blablabab
+This code demonstrates how passing in argument into a function may or may not mutate it depending on the mutability and the function. 
+
+- `concat` is not a mutating method, it returns a new array. 
+
+
+
+```javascript
+function addName(arr, name) {                   //line 1
+  arr.push([name]);                      //line 2
+}                                                 // line 3
+
+let names = ["bob", "kim"];                      // line 4
+addName(names, "jim");                           // line 5
+console.log(names); // => [ 'bob', 'kim', 'jim']     // line 6
+```
+
+- we care that push mutates the array
+
+
+
